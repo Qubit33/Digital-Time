@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DigitalTime - Relógio Analógico e Digital com Múltiplos Fusos Horários">
+    <title>DigitalTime v1.0</title>
+    <link rel="stylesheet" href="source/assets/style.css">
+</head>
+<body class="dark">
+    <div id="fps" class="fps-counter" aria-label="Frames por segundo">FPS: 0</div>
+    <div id="app" class="app-container">
+
+        <!-- 🌍 CANVAS 3D (EARTH) -->
+        <canvas id="earthCanvas"></canvas>
+
+        <!-- 🎛️ CONTROLES (TIMEZONE + THEME) -->
+        <section class="section-controls">
+            <div class="controls-container">
+                <select id="timezone" class="control-select" aria-label="Selecionar fuso horário">
+                    <option value="America/Sao_Paulo">🇧🇷 Brasil</option>
+                    <option value="America/New_York">🗽 Nova York</option>
+                    <option value="Europe/London">🇬🇧 Londres</option>
+                    <option value="Asia/Tokyo">🇯🇵 Tóquio</option>
+                    <option value="Quantic">⚡ Quantic Clock</option>
+                </select>
+
+                <select id="theme" class="control-select" aria-label="Selecionar tema">
+                    <option value="">🌙 Escuro</option>
+                    <option value="light">☀️ Claro</option>
+                    <option value="neon">⚡ Neon</option>
+                    <option value="classic">🎨 Clássico</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- ⏱️ RELÓGIO DIGITAL -->
+        <section class="section-digital">
+            <div id="digital" class="digital-display" aria-live="polite">00:00:00</div>
+        </section>
+
+        <!-- ⏰ RELÓGIO ANALÓGICO -->
+        <section class="section-analog">
+            <div class="clock" id="clock" role="img" aria-label="Relógio analógico">
+                <div class="hand hour" id="hour" aria-hidden="true"></div>
+                <div class="hand minute" id="minute" aria-hidden="true"></div>
+                <div class="hand second" id="second" aria-hidden="true"></div>
+                <div class="center" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <!-- 🪙 MOEDAS -->
+        <div style="margin:15px; text-align:center;">  
+        <h2>🪙 Moedas</h2>  
+        <div id="coins" style="font-size:30px; margin:10px;">0</div>  
+        </div>
+
+        <!-- ⏱️ SEÇÃO DE CRONÔMETRO -->
+        <section class="section-stopwatch">
+        <div style="margin:15px;text-align:center;">  
+        <h2>⏱️ Cronômetro</h2>
+        <div id="stopwatch" style="font-size:28px; margin:10px;">00:00:00</div>       
+            <div class="stopwatch-buttons">
+                <button id="btn-start" class="btn btn-start" onclick="startStopwatch()">Iniciar</button>
+                <button id="btn-pause" class="btn btn-pause" onclick="pauseStopwatch()">Pausar</button>
+                <button id="btn-reset" class="btn btn-reset" onclick="resetStopwatch()">Resetar</button>
+            </div>
+        </section>
+
+    </div>   
+    <!-- 📦 Bibliotecas Externas -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+    <!-- 🎮 App Scripts (Ordem de Carregamento Importante) -->
+    <script type="module" src="./include/WebGPURenderer.js"></script>
+    <script src="source/system.js"></script>
+    <script src="source/script.js"></script>
+    <script src="source/cronometro.js"></script>
+
+</body>
+</html>
