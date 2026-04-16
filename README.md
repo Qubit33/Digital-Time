@@ -1,2 +1,2 @@
 # Digital-Time
-(images/Digital-Time.jpg)
+![Preview](.jpg)
