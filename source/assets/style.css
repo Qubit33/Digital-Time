@@ -50,7 +50,7 @@ border-radius:4px;
 
 /* 🎨 BODY */
     body{
-    background: var(--bg);
+    /* background: var(--bg); */
     color: var(--number);
     font-family: Arial, sans-serif;
 }
@@ -173,8 +173,8 @@ select{
 /* 🎨 TEMAS */
 /* ========================= */
 :root{
-    --bg:#111;    
-    --clock-bg:#111;
+    /* --bg:#111; */    
+    /* --clock-bg:#111; */
     --border:white;
     --number:white;
     --hour:white;
@@ -183,8 +183,8 @@ select{
 }
 
 body.light{
-    --bg:#f4f4f4;
-    --clock-bg:white;
+    /* --bg:#f4f4f4; */
+    /* --clock-bg:white; */
     --border:black;
     --number:black;
     --hour:black;
@@ -193,8 +193,8 @@ body.light{
 }
 
 body.neon{
-    --bg:#000;
-    --clock-bg:#000;
+    /* --bg:#000; */
+    /* --clock-bg:#000; */
     --border:#00ffff;
     --number:#00ffff;
     --hour:#00ffff;
@@ -203,8 +203,8 @@ body.neon{
 }
 
 body.classic{
-    --bg:#fdf6e3;
-    --clock-bg:#fdf6e3;
+    /* --bg:#fdf6e3; */
+    /* --clock-bg:#fdf6e3; */
     --border:#654321;
     --number:#654321;
     --hour:#654321;
