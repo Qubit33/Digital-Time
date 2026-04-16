@@ -41,7 +41,9 @@ function initScene() {
     Config.renderer = new THREE.WebGLRenderer({ antialias: true });
     Config.renderer.setSize(window.innerWidth, window.innerHeight);
     Config.renderer.setPixelRatio(window.devicePixelRatio);
-    document.body.appendChild(Config.renderer.domElement);
+
+Config.renderer.domElement.id = "earthCanvas";
+document.body.prepend(Config.renderer.domElement); // 🔥 melhor que append
 
     // 📜 Cena
     Config.scene = new THREE.Scene();
