@@ -1,2 +1,2 @@
 # Digital-Time
-![Preview do projeto](images/Digital-Time.jpg)
+(images/Digital-Time.jpg)
