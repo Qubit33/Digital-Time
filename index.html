@@ -1,78 +1,62 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DigitalTime - Relógio Analógico e Digital com Múltiplos Fusos Horários">
-    <title>DIGITAL-TIME</title>
-    <link rel="stylesheet" href="source/assets/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DigitalTime - Analog and Digital Clock with Multiple Time Zones">
+<title>DIGITAL-TIME</title>
+<link rel="stylesheet" href="source/assets/style.css">
 </head>
 <body class="dark">
-    <!-- <div id="fps" class="fps-counter" aria-label="Frames por segundo">FPS: 0</div>
- -->    <div id="app" class="app-container">
-
-        <!-- CANVAS 3D (EARTH) -->
-        <canvas id="earthCanvas"></canvas>
-
-        <!-- CONTROLES (TIMEZONE + THEME) -->
-        <section class="section-controls">
-            <div class="controls-container">
-                <select id="timezone" class="control-select" aria-label="Selecionar fuso horário">
-                    <option value="America/Sao_Paulo">Brasil</option>
-                    <option value="America/New_York">Nova York</option>
-                    <option value="Europe/London">Londres</option>
-                    <option value="Asia/Tokyo">Tóquio</option>
-                    <option value="Quantic">Quantic Clock</option>
-                </select>
-
-                <select id="theme" class="control-select" aria-label="Selecionar tema">
-                    <option value=""</option>White</option>
-                    <option value="light">Shadow</option>
-                </select>
-            </div>
-        </section>
-
-        <!-- RELÓGIO DIGITAL -->
-        <section class="section-digital">
-            <div id="digital" class="digital-display" aria-live="polite">00:00:00</div>
-        </section>
-
-        <!-- RELÓGIO ANALÓGICO -->
-        <section class="section-analog">
-            <div class="clock" id="clock" role="img" aria-label="Relógio analógico">
-                <div class="hand hour" id="hour" aria-hidden="true"></div>
-                <div class="hand minute" id="minute" aria-hidden="true"></div>
-                <div class="hand second" id="second" aria-hidden="true"></div>
-                <div class="center" aria-hidden="true"></div>
-            </div>
-        </section>
-        
-        <!-- Search Google -->
-        <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Pesquisar...">
-        <button onclick="searchGoogle()">Search</button>
-       </div>
-        <!-- SEÇÃO DE CRONÔMETRO -->
-        <section class="section-stopwatch">
-        <div style="margin:15px;text-align:center;">  
-        <h2>CRONÔMETRO</h2>
-        <div id="stopwatch" style="font-size:28px; margin:10px;">00:00:00</div>       
-            <div class="stopwatch-buttons">
-                <button id="btn-start" class="btn btn-start" onclick="startStopwatch()">Iniciar</button>
-                <button id="btn-pause" class="btn btn-pause" onclick="pauseStopwatch()">Pausar</button>
-                <button id="btn-reset" class="btn btn-reset" onclick="resetStopwatch()">Resetar</button>
-            </div>
-        </section>
-
-    </div>   
-    <!-- Bibliotecas Externas -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
-
-    <!-- App Scripts (Ordem de Carregamento Importante) -->
-    <script type="module" src="./include/WebGPURenderer.js"></script>
-    <script src="source/system.js"></script>
-    <script src="source/script.js"></script>
-    <script src="source/cronometro.js"></script>
-    <script src="source/search.js"></script>
+<div id="app" class="app-container">
+<canvas id="earthCanvas"></canvas>
+<section class="section-controls">
+<div class="controls-container">
+<select id="timezone" class="control-select" aria-label="Select time zone">
+<option value="America/Sao_Paulo">Brazil</option>
+<option value="America/New_York">New York</option>
+<option value="Europe/London">London</option>
+<option value="Asia/Tokyo">Tokyo</option>
+<option value="Quantic">Quantic Clock</option>
+</select>
+<select id="theme" class="control-select" aria-label="Select theme">
+<option value="dark">White</option>
+<option value="light">Shadow</option>
+</select>
+</div>
+</section>
+<section class="section-digital">
+<div id="digital" class="digital-display" aria-live="polite">00:00:00</div>
+</section>
+<section class="section-analog">
+<div class="clock" id="clock" role="img" aria-label="Analog clock">
+<div class="hand hour" id="hour"></div>
+<div class="hand minute" id="minute"></div>
+<div class="hand second" id="second"></div>
+<div class="center"></div>
+</div>
+</section>
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search...">
+<button onclick="searchGoogle()">Search</button>
+</div>
+<section class="section-stopwatch">
+<div style="margin:15px;text-align:center;">
+<h2>TIMER</h2>
+<div id="stopwatch" style="font-size:28px; margin:10px;">00:00:00</div>
+<div class="stopwatch-buttons">
+<button id="btn-start" onclick="startStopwatch()">Start</button>
+<button id="btn-pause" onclick="pauseStopwatch()">Pause</button>
+<button id="btn-reset" onclick="resetStopwatch()">Reset</button>
+</div>
+</div>
+</section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script type="module" src="./include/WebGPURenderer.js"></script>
+<script src="source/system.js"></script>
+<script src="source/script.js"></script>
+<script src="source/cronometro.js"></script>
+<script src="source/search.js"></script>
 </body>
 </html>
