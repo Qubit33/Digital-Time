@@ -1,25 +1,17 @@
-// ═══════════════════════════════════════════════════════════════
-// 🕐 CRONÔMETRO - Sistema Completo
-// ═══════════════════════════════════════════════════════════════
-
-// ═══════════════════════════════════════════════════════════════
-// 📊 ESTADO DO CRONÔMETRO
-// ═══════════════════════════════════════════════════════════════
+// CRONÔMETRO - Sistema Completo 
+// Update: 16/04/26 ═════════════════════════════════════
+// ESTADO DO CRONÔMETRO ═════════════════════════════════════
 const StopwatchState = {
     interval: null,
     startTime: 0,
     elapsedTime: 0,
-    isRunning: false,
-    coins: 0,
-    lastCoinTime: 0
+    isRunning: false
 };
 
-// ═══════════════════════════════════════════════════════════════
-// 🎯 ELEMENTOS DO DOM
-// ═══════════════════════════════════════════════════════════════
+// - 
+// ELEMENTOS DO DOM ═════════════════════════════════════
 const DOM = {
     stopwatch: document.getElementById("stopwatch"),
-    coins: document.getElementById("coins"),
     clock: document.getElementById("clock"),
     btnStart: document.getElementById("btn-start"),
     btnPause: document.getElementById("btn-pause"),
@@ -29,13 +21,12 @@ const DOM = {
 // Validação de elementos
 Object.entries(DOM).forEach(([key, element]) => {
     if (!element) {
-        console.warn(`⚠️ Elemento não encontrado: ${key}`);
+        console.warn(`Elemento não encontrado: ${key}`);
     }
 });
 
-// ═══════════════════════════════════════════════════════════════
-// ⏱️ FORMATAR TEMPO (HH:MM:SS)
-// ═══════════════════════════════════════════════════════════════
+//-
+// FORMATAR TEMPO (HH:MM:SS) ═════════════════════════════════════
 function formatTime(milliseconds) {
     const totalSeconds = Math.floor(milliseconds / 1000);
     
@@ -48,9 +39,8 @@ function formatTime(milliseconds) {
         .join(':');
 }
 
-// ═══════════════════════════════════════════════════════════════
-// 🔄 ATUALIZAR DISPLAY DO CRONÔMETRO
-// ═══════════════════════════════════════════════════════════════
+//- 
+// ATUALIZAR DISPLAY DO CRONÔMETRO ═════════════════════════════════════
 function updateStopwatchDisplay() {
     const now = Date.now();
     StopwatchState.elapsedTime = now - StopwatchState.startTime;
@@ -59,27 +49,10 @@ function updateStopwatchDisplay() {
     if (DOM.stopwatch) {
         DOM.stopwatch.innerText = formatTime(StopwatchState.elapsedTime);
     }
-
-    // 🪙 Ganhar moeda a cada segundo completo
-    checkCoinReward();
 }
 
-// ═══════════════════════════════════════════════════════════════
-// 🪙 VERIFICAR RECOMPENSA DE MOEDA
-// ═══════════════════════════════════════════════════════════════
-function checkCoinReward() {
-    const secondsElapsed = Math.floor(StopwatchState.elapsedTime / 1000);
-    
-    // Se passou mais de 1 segundo desde a última moeda, ganha nova moeda
-    if (secondsElapsed > StopwatchState.lastCoinTime) {
-        StopwatchState.lastCoinTime = secondsElapsed;
-        addCoin();
-    }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// ▶️ INICIAR CRONÔMETRO
-// ═══════════════════════════════════════════════════════════════
+//-
+// INICIAR CRONÔMETRO ═════════════════════════════════════
 function startStopwatch() {
     if (StopwatchState.isRunning) return; // Evita múltiplas execuções
 
@@ -91,9 +64,8 @@ function startStopwatch() {
     updateButtonStates();
 }
 
-// ═══════════════════════════════════════════════════════════════
-// ⏸️ PAUSAR CRONÔMETRO
-// ═══════════════════════════════════════════════════════════════
+//-
+// PAUSAR CRONÔMETRO ═════════════════════════════════════
 function pauseStopwatch() {
     if (!StopwatchState.isRunning) return; // Evita erros
 
@@ -104,91 +76,26 @@ function pauseStopwatch() {
     updateButtonStates();
 }
 
-// ═══════════════════════════════════════════════════════════════
-// 🔄 RESETAR CRONÔMETRO
-// ═══════════════════════════════════════════════════════════════
+//-
+// RESETAR CRONÔMETRO ═════════════════════════════════════
 function resetStopwatch() {
     clearInterval(StopwatchState.interval);
     
     StopwatchState.isRunning = false;
     StopwatchState.elapsedTime = 0;
     StopwatchState.startTime = 0;
-    StopwatchState.coins = 0;
-    StopwatchState.lastCoinTime = 0;
 
     // Resetar displays
     if (DOM.stopwatch) {
         DOM.stopwatch.innerText = "00:00:00";
     }
-    updateCoinDisplay();
-
-    // Remover todas as moedas animadas da tela
-    clearCoins();
 
     // Atualizar estado dos botões
     updateButtonStates();
 }
 
-// ═══════════════════════════════════════════════════════════════
-// 🪙 ADICIONAR MOEDA + ANIMAÇÃO
-// ═══════════════════════════════════════════════════════════════
-function addCoin() {
-    StopwatchState.coins++;
-    updateCoinDisplay();
-
-    // 🎨 Criar elemento de moeda animada
-    createCoinAnimation();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 📊 ATUALIZAR DISPLAY DE MOEDAS
-// ═══════════════════════════════════════════════════════════════
-function updateCoinDisplay() {
-    if (DOM.coins) {
-        DOM.coins.innerText = StopwatchState.coins;
-    }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 🎨 CRIAR ANIMAÇÃO DE MOEDA
-// ═══════════════════════════════════════════════════════════════
-function createCoinAnimation() {
-    if (!DOM.clock) return;
-
-    const coin = document.createElement("div");
-    coin.className = "coin";
-    coin.innerText = "🪙";
-
-    // 📍 Posição aleatória ao redor do centro do relógio
-    const clockRect = DOM.clock.getBoundingClientRect();
-    const offsetX = Math.random() * 100 - 50; // -50 a +50
-    const offsetY = Math.random() * 100 - 50; // -50 a +50
-
-    coin.style.left = `calc(50% + ${offsetX}px)`;
-    coin.style.top = `calc(50% + ${offsetY}px)`;
-    coin.style.position = "absolute";
-
-    DOM.clock.appendChild(coin);
-
-    // 🎬 Remover após animação
-    setTimeout(() => {
-        coin.remove();
-    }, 1000); // Deve corresponder ao CSS animation-duration
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 🧹 LIMPAR TODAS AS MOEDAS ANIMADAS
-// ═══════════════════════════════════════════════════════════════
-function clearCoins() {
-    if (!DOM.clock) return;
-
-    const coins = DOM.clock.querySelectorAll(".coin");
-    coins.forEach(coin => coin.remove());
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 🔘 ATUALIZAR ESTADO DOS BOTÕES
-// ═══════════════════════════════════════════════════════════════
+//-
+// ATUALIZAR ESTADO DOS BOTÕES ═════════════════════════════════════
 function updateButtonStates() {
     if (!DOM.btnStart || !DOM.btnPause) return;
 
@@ -205,9 +112,8 @@ function updateButtonStates() {
     }
 }
 
-// ═══════════════════════════════════════════════════════════════
-// 🎯 EVENT LISTENERS
-// ═══════════════════════════════════════════════════════════════
+//-
+// EVENT LISTENERS ═════════════════════════════════════
 if (DOM.btnStart) {
     DOM.btnStart.addEventListener("click", startStopwatch);
 }
@@ -220,16 +126,14 @@ if (DOM.btnReset) {
     DOM.btnReset.addEventListener("click", resetStopwatch);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// 🧹 CLEANUP AO SAIR
-// ═══════════════════════════════════════════════════════════════
+//-
+// CLEANUP AO SAIR ═════════════════════════════════════
 window.addEventListener("beforeunload", () => {
     clearInterval(StopwatchState.interval);
     StopwatchState.isRunning = false;
 });
 
-// ═══════════════════════════════════════════════════════════════
-// ✅ INICIALIZAÇÃO
-// ═══════════════════════════════════════════════════════════════
-console.log("✅ Cronômetro carregado com sucesso");
+//-
+// INICIALIZAÇÃO ═════════════════════════════════════
+console.log("Cronômetro carregado com sucesso");
 updateButtonStates(); // Inicializar estado dos botões
